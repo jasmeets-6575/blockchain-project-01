@@ -30,11 +30,17 @@ class Blockchain {
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis()))
       return false;
     for (let i = 1; i < chain.length; i++) {
-      const { timestamp, prevHash, hash, data } = chain[i];
+      const { timestamp, prevHash, hash, nonce, difficulty, data } = chain[i];
       const realLastHash = chain[i - 1].hash;
       if (prevHash !== realLastHash) return false;
 
-      const validatedHash = cryptoHash(timestamp, prevHash, data);
+      const validatedHash = cryptoHash(
+        timestamp,
+        prevHash,
+        nonce,
+        difficulty,
+        data
+      );
       if (hash !== validatedHash) return false;
     }
     return true;
@@ -43,6 +49,8 @@ class Blockchain {
 
 const blockchain = new Blockchain();
 blockchain.addBlock({ data: "block1" });
+blockchain.addBlock({ data: "block2" });
 const result = Blockchain.isvalidChain(blockchain.chain);
+console.log(blockchain.chain);
 console.log(result);
 module.exports = Blockchain;
