@@ -29,7 +29,8 @@ const block1 = new Block({
   data: "hello",
 });
 
-const genesisBlock = Block.genesis;
+// const genesisBlock = Block.genesis;
 
-const result = Block.mineBlock({ prevBlock: block1, data: "block2" });
-console.log(result);
+// const result = Block.mineBlock({ prevBlock: block1, data: "block2" });
+// console.log(result);
+module.exports = Block;
