@@ -1,5 +1,5 @@
 const { GENESIS_DATA } = require("./config");
-
+const cryptoHash = require("./crypto-hash");
 class Block {
   constructor({ timestamp, prevHash, hash, data }) {
     this.timestamp = timestamp;
@@ -10,6 +10,16 @@ class Block {
   static genesis() {
     return new this(GENESIS_DATA);
   }
+  static mineBlock({ prevBlock, data }) {
+    const timestamp = Date.now();
+    const prevHash = prevBlock.hash;
+    return new this({
+      timestamp,
+      prevHash,
+      data,
+      hash: cryptoHash(timestamp, prevHash, data),
+    });
+  }
 }
 
 const block1 = new Block({
@@ -18,5 +28,8 @@ const block1 = new Block({
   hash: "0xadf",
   data: "hello",
 });
+
 const genesisBlock = Block.genesis;
-console.log(block1);
+
+const result = Block.mineBlock({ prevBlock: block1, data: "block2" });
+console.log(result);
