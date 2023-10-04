@@ -41,7 +41,7 @@ class Block {
   }
 
   static adjustDifficulty({ originalBlock, timestamp }) {
-    const { difficulty } = originalBlock;
+    let { difficulty } = originalBlock;
 
     if (difficulty < 1) return 1;
 
