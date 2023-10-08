@@ -51,8 +51,6 @@ class Blockchain {
 }
 
 const blockchain = new Blockchain();
-blockchain.addBlock({ data: "block1" });
-blockchain.addBlock({ data: "block2" });
 const result = Blockchain.isvalidChain(blockchain.chain);
 console.log(blockchain.chain);
 console.log(result);
